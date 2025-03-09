@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image Generator</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 50px; ;
+        }
+        button{
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+       
+        img{
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            
+
+        }
+        
+    </style>
+
+</head>
+<body>
+    <h1>Random Image Generation</h1>
+    <button id="generateBtn">Generate Image</button>
+    <br>
+    <img id="photo" src="" alt="randomPhoto">
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', generatePhoto);
+        function generatePhoto(){
+            const url="https://api.unsplash.com/photos/random?client_id=mbQzOKU_FxblSFgtJLG3RRe-65MI9zUP8Llq9cHK5mU";
+            fetch(url)
+            .then(response=>response.json())
+            .then(data=>{
+                const photoUrl=data.urls.regular;
+                document.getElementById('photo').src=photoUrl;
+
+            })
+            .catch(error=>{console.error("Error fetching photo:");
+                document.getElementById('photo').src="https://via.placeholder.com/400";
+                document.getElementById('photo').alt="failed to load image";
+            });
+        }
+
+    </script>
+    
+</body>
+</html>
